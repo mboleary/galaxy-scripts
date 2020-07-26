@@ -1,0 +1,53 @@
+#!/bin/bash
+
+# This is the component responsible for reconnecting a computer over sshfs
+
+GALAXY_DIR="${HOME}/galaxy"
+
+if [ -z $1 ]; then
+    echo "./gxrefresh <ipaddr>"
+    exit 1
+fi
+
+# Get Hostname from connections file
+
+HOSTNAME=$(cat $GALAXY_DIR/tmp/connections | grep $1 | cut -d";" -f1)
+
+echo $HOSTNAME
+
+if [ -z "$HOSTNAME" ]; then
+    echo "Couldn't find hostname in connections. Was this computer mounted?"
+    exit 1
+fi
+
+rm $GALAXY_DIR/mnt/$HOSTNAME
+
+# Remount the filesystem
+
+MNT_ID=$(uuidgen)
+
+if [ ! -d "$GALAXY_DIR/tmp/mnt/$MNT_ID" ]; then
+    mkdir $GALAXY_DIR/tmp/mnt/$MNT_ID
+fi
+
+sshfs $1:/ $GALAXY_DIR/tmp/mnt/$MNT_ID &
+
+_pid=$! # Save the sshfs PID, since sometimes it gets stuck
+
+ln -s $GALAXY_DIR/tmp/mnt/$MNT_ID $GALAXY_DIR/mnt/$HOSTNAME
+
+# Update the sshfs information
+
+TO_UPDATE=$(cat $GALAXY_DIR/tmp/connections | grep $HOSTNAME)
+
+NEWLINE="$HOSTNAME;$1;$MNT_ID;$_pid"
+
+echo $TO_UPDATE
+echo $NEWLINE
+
+sed -i "s/$TO_UPDATE/$NEWLINE/g" $GALAXY_DIR/tmp/connections
+
+# Note: This may fail due to a broken connection
+umount $GALAXY_DIR/tmp/mnt/$MNT_ID
+rmdir $GALAXY_DIR/tmp/mnt/$MNT_ID
+

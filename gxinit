@@ -1,0 +1,14 @@
+#!/bin/bash
+
+# Creates the files in the home directory
+
+mkdir "${HOME}/galaxy"
+
+mkdir "${HOME}/galaxy/bin"
+mkdir "${HOME}/galaxy/config"
+mkdir "${HOME}/galaxy/mnt"
+mkdir "${HOME}/galaxy/tmp"
+
+mkdir "${HOME}/galaxy/tmp/mnt"
+
+echo "" > "${HOME}/galaxy/tmp/connections"

@@ -1,0 +1,43 @@
+#!/bin/bash
+
+# Mounts a remote system
+
+GALAXY_DIR="${HOME}/galaxy"
+
+set -e
+
+if [ -z $1 ]; then
+    echo "./gxumount <ipaddr>"
+    exit 1
+fi
+
+# Get Hostname from connections file
+
+CONN_LINE=$(cat $GALAXY_DIR/tmp/connections | grep $1)
+
+HOSTNAME=$(echo $CONN_LINE | cut -d";" -f1)
+
+echo $HOSTNAME
+
+if [ -z "$HOSTNAME" ]; then
+    echo "Couldn't find hostname in connections. Was this computer mounted?"
+    exit 1
+fi
+
+# Remove the hostname and ip address
+
+TO_REMOVE=$(echo $CONN_LINE)
+
+echo $TO_REMOVE
+
+sed -i "/$TO_REMOVE/d" $GALAXY_DIR/tmp/connections
+
+# Unmount the filesystem
+
+MNT_POINT=$(echo $CONN_LINE | cut -d";" -f3)
+
+rm $GALAXY_DIR/mnt/$HOSTNAME
+
+umount $GALAXY_DIR/tmp/mnt/$MNT_POINT
+
+rmdir $GALAXY_DIR/tmp/mnt/$MNT_POINT

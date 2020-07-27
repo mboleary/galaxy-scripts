@@ -13,8 +13,6 @@ fi
 
 CONN_LINE=$(cat $GALAXY_DIR/tmp/connections | grep $1)
 
-echo $CONN_LINE
-
 HOSTNAME=$(echo $CONN_LINE | cut -d";" -f1)
 IP=$(echo $CONN_LINE | cut -d";" -f2)
 
@@ -25,7 +23,9 @@ if [ -z "$HOSTNAME" ]; then
     exit 1
 fi
 
-CMD_LINE=$(cat $GALAXY_DIR/mnt/$HOSTNAME$REMOTE_GX/config/commands | grep $1)
+cat "$GALAXY_DIR/mnt/$HOSTNAME$REMOTE_GX/config/commands"
+
+CMD_LINE=$(cat $GALAXY_DIR/mnt/$HOSTNAME$REMOTE_GX/config/commands | grep $2)
 
 if [ -z "$CMD_LINE" ]; then
     echo "Command not found on this system"
@@ -51,3 +51,7 @@ if [ -n $USE_XPRA ]; then
 fi
 
 ssh $IP "bash -c \"source .profile && gxrunner-target $CMD\""
+
+if [ -n $USE_XPRA ]; then
+    
+fi

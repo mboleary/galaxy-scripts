@@ -22,7 +22,7 @@ USE_XPRA=$(echo $CMD_LINE | cut -d";" -f3)
 
 USE_VNC=$(echo $CMD_LINE | cut -d";" -f4)
 
-RUN_IN_TMUX=""
+RUN_IN_TMUX=$(echo $CMD_LINE | cut -d";" -f5) # Keep task running after terminal is closed
 
 if [ -n $USE_XPRA ] || [ -n $USE_VNC ]; then 
     RUN_IN_TMUX="1"

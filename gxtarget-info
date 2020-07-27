@@ -1,0 +1,7 @@
+#!/bin/bash
+
+# Provides the magic string to the host, which will determine how the host will connect to this target
+
+source "${HOME}/.gxrc"
+
+echo "$HOSTNAME;$USER;$GALAXY_DIR"

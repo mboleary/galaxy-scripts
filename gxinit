@@ -12,3 +12,4 @@ mkdir "${HOME}/galaxy/tmp"
 mkdir "${HOME}/galaxy/tmp/mnt"
 
 echo "" > "${HOME}/galaxy/tmp/connections"
+echo "GALAXY_DIR=\"${HOME}/galax\"" > "${HOME}/.gxrc"

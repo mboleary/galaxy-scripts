@@ -2,6 +2,6 @@
 
 # Lists information about connections
 
-GALAXY_DIR="${HOME}/galaxy"
+source "${HOME}/.gxrc"
 
 cat $GALAXY_DIR/tmp/connections

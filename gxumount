@@ -2,7 +2,7 @@
 
 # Mounts a remote system
 
-GALAXY_DIR="${HOME}/galaxy"
+source "${HOME}/.gxrc"
 
 set -e
 

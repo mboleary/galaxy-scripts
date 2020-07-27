@@ -2,7 +2,7 @@
 
 # Runs a program through ssh and sets the environment variables correctly. This is run on the target machine.
 
-GALAXY_DIR="${HOME}/galaxy"
+source "${HOME}/.gxrc"
 DEFAULT_XPRA=":100"
 
 if [ -z "$1" ]; then
@@ -13,7 +13,7 @@ fi
 CMD_LINE=$(cat $GALAXY_DIR/config/commands | grep $1)
 
 if [ -z "$CMD_LINE" ]; then
-    echo "Command not found on this system"
+    echo "$1: Command not found on this system"
     exit 1
 fi
 
@@ -33,7 +33,7 @@ DISPLAY_NUM=":0"
 
 if [ -n $USE_XPRA ]; then 
     DISPLAY_NUM=$(xpra list | grep LIVE | cut -d":" -f2)
-    if [ -z "$DISPLAY_NUM"]; then
+    if [ -z "$DISPLAY_NUM" ]; then
         echo "Starting Xpra at $DEFAULT_XPRA..."
         xpra start $DEFAULT_XPRA
         DISPLAY_NUM="$DEFAULT_XPRA"

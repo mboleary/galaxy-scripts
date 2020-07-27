@@ -2,7 +2,7 @@
 
 # This is the component responsible for reconnecting a computer over sshfs
 
-GALAXY_DIR="${HOME}/galaxy"
+source "${HOME}/.gxrc"
 
 if [ -z $1 ]; then
     echo "./gxrefresh <ipaddr>"

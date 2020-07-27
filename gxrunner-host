@@ -2,7 +2,7 @@
 
 # Runs a program through ssh and sets the environment variables correctly. This is run on the host machine.
 
-GALAXY_DIR="${HOME}/galaxy"
+source "${HOME}/.gxrc"
 
 if [ -z "$1" ]; then
     echo "gxrunner-host <command_name>"

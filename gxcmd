@@ -2,7 +2,7 @@
 
 # Runs a command on a remote system
 
-GALAXY_DIR="${HOME}/galaxy"
+source "${HOME}/.gxrc"
 
 if [ -z $1 ]; then
     echo "./gxcmd <ipaddr> [<cmd>]"

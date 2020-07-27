@@ -3,7 +3,6 @@
 # Runs a program through ssh and sets the environment variables correctly. This is run on the target machine.
 
 source "${HOME}/.gxrc"
-DEFAULT_XPRA=":100"
 
 if [ -z "$1" ]; then
     echo "gxrunner-target <command_name>"

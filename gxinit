@@ -13,3 +13,4 @@ mkdir "${HOME}/galaxy/tmp/mnt"
 
 echo "" > "${HOME}/galaxy/tmp/connections"
 echo "GALAXY_DIR=\"${HOME}/galaxy\"" > "${HOME}/.gxrc"
+echo "DEFAULT_XPRA=\":100\"" >> "${HOME}/.gxrc"

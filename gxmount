@@ -4,14 +4,14 @@
 
 source "${HOME}/.gxrc"
 
-INFO_CMD="./gxtarget-info" # TODO: Find some way to run this command on the remote machine in a sensible way
+INFO_CMD="gxtarget-info"
 
 if [ -z $1 ]; then
     echo "./gxmount <ipaddr>"
     exit 1
 fi
 
-INFO_STR=$(ssh $1 -o PasswordAuthentication=no $INFO_CMD)
+INFO_STR=$(ssh $1 -o PasswordAuthentication=no "bash -c $INFO_CMD")
 
 if [ -z $INFO_STR ]; then
     echo "Mounting Failed. Make sure that you have permission to log into this computer, and that you have ssh keys set up! Also make sure that galaxy scripts are installed and that '$INFO_CMD' is in the home directory"

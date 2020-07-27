@@ -53,5 +53,9 @@ fi
 ssh $IP "bash -c \"source .profile && gxrunner-target $CMD\""
 
 if [ -n $USE_XPRA ]; then
+    xpra attach ssh://$IP/100
+fi
+
+if [ -n $USE_VNC ]; then
     
 fi

@@ -39,6 +39,14 @@ if [ -n $USE_XPRA ]; then
     fi
 fi
 
+if [ -n $USE_VNC ]; then
+    XVNC_PS=$(ps -e | grep x11vnc)
+    if [ -z "$XVNC_PS" ]; then
+        echo "Starting VNC Server on :0..."
+        x11vnc &
+    fi
+fi
+
 export DISPLAY=:$DISPLAY_NUM
 
 if [ -n $RUN_IN_TMUX ]; then

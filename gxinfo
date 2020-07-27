@@ -1,0 +1,7 @@
+#!/bin/bash
+
+# Lists information about connections
+
+GALAXY_DIR="${HOME}/galaxy"
+
+cat $GALAXY_DIR/tmp/connections

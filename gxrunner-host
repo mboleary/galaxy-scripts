@@ -38,6 +38,8 @@ USE_XPRA=$(echo $CMD_LINE | cut -d";" -f3)
 
 USE_VNC=$(echo $CMD_LINE | cut -d";" -f4)
 
+echo "[$USE_XPRA] [$USE_VNC]"
+
 RUN_IN_TMUX=""
 
 if [ -n $USE_XPRA ] || [ -n $USE_VNC ]; then 
@@ -50,12 +52,14 @@ if [ -n $USE_XPRA ]; then
     DISPLAY_NUM=$DEFAULT_XPRA
 fi
 
-ssh $IP "bash -c \"source .profile && gxrunner-target $CMD\""
+ssh $IP "bash -c \"source .profile && gxrunner-target $CMD\"" &
 
 if [ -n $USE_XPRA ]; then
-    xpra attach ssh://$IP/100
+    echo "XPRA ATTACH"
+    xpra attach ssh://$IP/100 &
 fi
 
 if [ -n $USE_VNC ]; then
-    
+    echo "VNC START"
+    vncviewer $IP &
 fi

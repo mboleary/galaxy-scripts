@@ -24,6 +24,8 @@ USE_VNC=$(echo $CMD_LINE | cut -d";" -f4)
 
 RUN_IN_TMUX=$(echo $CMD_LINE | cut -d";" -f5) # Keep task running after terminal is closed
 
+echo "[$USE_XPRA] [$USE_VNC]"
+
 if [ -n $USE_XPRA ] || [ -n $USE_VNC ]; then 
     RUN_IN_TMUX="1"
 fi
@@ -52,4 +54,7 @@ export DISPLAY=:$DISPLAY_NUM
 if [ -n $RUN_IN_TMUX ]; then
     TMUX_SESS_NAME=$(uuidgen)
     tmux new -d -s gx_"$TMUX_SESS_NAME" "$1"
+else
+    # Run the command here
+    $1
 fi

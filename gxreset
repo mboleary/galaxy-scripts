@@ -1,0 +1,11 @@
+#!/bin/bash
+
+# Resets the open connections between a local system and a remote system
+
+source "${HOME}/.gxrc"
+
+cd $GALAXY_DIR
+rm mnt/*
+umount tmp/mnt/*
+rmdir tmp/mnt/*
+echo "" > tmp/connections

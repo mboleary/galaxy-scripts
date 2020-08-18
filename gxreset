@@ -7,5 +7,5 @@ source "${HOME}/.gxrc"
 cd $GALAXY_DIR
 rm mnt/*
 umount tmp/mnt/*
-rmdir -rf tmp/mnt/*
+rmdir tmp/mnt/*
 echo "" > tmp/connections
